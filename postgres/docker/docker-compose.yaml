@@ -1,7 +1,7 @@
 services:
 
   db:
-    build: ./database
+    build: database
     restart: always
     environment:
       POSTGRES_USER: root
