@@ -1,4 +1,6 @@
-# Hadoop
+# Hadoop 3
+
+Hadoop 3 is not compatible with sqoop. If you need it use Hadoop 2
 
 **Instalation**
 
@@ -8,6 +10,8 @@ Download hadoop distribution
 ```bash
 wget https://www2.apache.paket.ua/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
 ```
+
+You can get versions of hadoop here https://www2.apache.paket.ua/hadoop/
 
 Unpack hadoop distribution.
 
