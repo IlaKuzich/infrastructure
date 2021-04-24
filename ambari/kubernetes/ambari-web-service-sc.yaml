@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambari-server-web-lb
+  namespace: ambari
+  labels:
+    name: ambari-server
+spec:
+  ports:
+  # the port that this service should serve on
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: ambari-server-web-lb
+  type: NodePort
+  selector:
+    name: ambari-server

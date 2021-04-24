@@ -1,6 +1,6 @@
 # Hadoop 3
 
-Hadoop 3 is not compatible with sqoop. If you need it use Hadoop 2
+Hadoop 3 is not compatible with sqoop. If you need sqoop use Hadoop 2
 
 **Instalation**
 
@@ -142,6 +142,10 @@ Start ResourceManager daemon and NodeManager daemon:
 ```bash
 sbin/start-yarn.sh
 ```
+Check if everything is working:
+```bash
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar grep input output 'dfs[a-z.]+'
+```
   
 Browse the web interface for the ResourceManager; by default it is available at:
 
@@ -157,4 +161,80 @@ When you’re done, stop the daemons with:
 sbin/stop-yarn.sh
 ```
 
+# Hadoop 2
 
+Download hadoop 2 distribution
+```bash
+wget https://www2.apache.paket.ua/hadoop/common/hadoop-2.10.1/hadoop-2.10.1.tar.gz
+```
+Export hadoop 2 distribution
+```bash
+tar -xvf hadoop-2.10.1.tar.gz
+```
+Override HADOOP_HOME if version 3 is present
+```bash
+export HADOOP_HOME=~/infra_experiments/hadoop/hadoop-2.10.1
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPPED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/bin
+```
+
+Modify configuration
+
+etc/hadoop/core-site.xml:
+```xml
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
+</configuration>
+```
+
+etc/hadoop/hdfs-site.xml
+```xml
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+</configuration>
+```
+
+
+Format the filesystem:
+
+```bash
+bin/hdfs namenode -format
+```
+  
+Start NameNode daemon and DataNode daemon:
+```bash
+sbin/start-dfs.sh
+```
+The hadoop daemon log output is written to the $HADOOP_LOG_DIR directory (defaults to $HADOOP_HOME/logs).
+
+Browse the web interface for the NameNode; by default it is available at:
+
+NameNode - http://localhost:9870/
+Make the HDFS directories required to execute MapReduce jobs:
+```bash
+  bin/hdfs dfs -mkdir /user
+  bin/hdfs dfs -mkdir /user/<username>
+```
+
+  
+Copy the input files into the distributed filesystem:
+```bash
+bin/hdfs dfs -mkdir input
+bin/hdfs dfs -put etc/hadoop/*.xml input
+```
+Run example:
+```bash
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar grep input output 'dfs[a-z.]+'
+```

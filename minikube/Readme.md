@@ -38,4 +38,11 @@ and than restart
 ```bash
 minikube start
 ```
+If 
+ * Configuring RBAC rules .../ E0420 15:54:13.630867    2850 start.go:131] Unable to scale down deployment "coredns" in namespace "kube-system" to 1 replica: timed out waiting for the condition
 
+Try to wipe out all minikube data
+```bash
+minikube delete --all
+minikube delete --purge
+```
