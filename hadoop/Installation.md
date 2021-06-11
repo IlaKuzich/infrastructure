@@ -238,3 +238,9 @@ Run example:
 ```bash
 bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.1.jar grep input output 'dfs[a-z.]+'
 ```
+
+# Troubleshooting
+
+If datanode is not starting probably namespace is corrupted and you have to format hdfs see:
+
+https://www.cs.brandeis.edu/~cs147a/lab/hadoop-troubleshooting/

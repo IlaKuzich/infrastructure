@@ -6,7 +6,7 @@ The ResourceManager and the NodeManager form the data-computation framework. The
 
 The per-application ApplicationMaster is, in effect, a framework specific library and is tasked with negotiating resources from the ResourceManager and working with the NodeManager(s) to execute and monitor the tasks.
 
-https://hadoop.apache.org/docs/r3.2.2/hadoop-yarn/hadoop-yarn-site/yarn_architecture.gif
+![Yarn architecture](https://hadoop.apache.org/docs/r3.2.2/hadoop-yarn/hadoop-yarn-site/yarn_architecture.gif)
 
 The ResourceManager has two main components: Scheduler and ApplicationsManager.
 
